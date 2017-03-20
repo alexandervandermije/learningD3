@@ -1,0 +1,32 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+#barChart1
+{
+	display:block;
+}
+.bar {
+    display: inline-block;
+    width: 20px;
+    margin-right: 2px;
+    margin-left:1px;
+    background-color: teal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
