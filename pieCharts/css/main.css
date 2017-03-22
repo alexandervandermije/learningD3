@@ -2,12 +2,14 @@
 {
     width: 360px;
     display: inline;
+    position: relative;
     height: 360px;
 }
 #donutChart
 {
     width: 360px;
     display: inline;
+    position: relative;
     height: 360px;
 }
 
@@ -19,4 +21,18 @@
 rect 
 {
     stroke-width: 2;
+}
+.tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: -100px;
+  width: 80px;
+  z-index: 10;
 }
