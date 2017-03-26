@@ -1,0 +1,77 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+h1
+{
+	font-size:2em;
+}
+h2
+{
+	font-size:1.5em;
+	
+}
+h1, h2
+{
+	font-weight:bold;
+	margin-bottom:0.2em;
+	margin-left:0.2em;
+	margin-top:0.1em;
+}
+#donutChartContainer
+{
+	margin-left:10px;
+	
+
+	#donutChart
+	{
+    	width: 360px;
+    	display: inline;
+    	position: relative;
+    	height: 360px;
+	}
+	form
+	{
+		border: solid 5px;
+		padding:10px;
+		width:360px;
+		background-color:#eee;
+		border-radius:10px;
+	}
+}
+#pieChart
+{
+    width: 360px;
+    display: inline;
+    position: relative;
+    height: 360px;
+}
+
+
+.legend 
+{
+    font-size: 12px;
+}
+
+rect 
+{
+    stroke-width: 2;
+}
+.tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: -100px;
+  width: 80px;
+  z-index: 10;
+}
+
