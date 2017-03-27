@@ -32,9 +32,23 @@ app.controller('myCtrl', function($scope) {
     var donutWidth = 75;
     var legendRectSize = 18;
     var legendSpacing = 4;
+    
+    $scope.addNewInput = function()
+    {
+        $scope.dataset.push({label:'enter a label here', count: 0})
+    }
+
+    var pie = d3.pie()// D3 Pie() function to turn normal data into pieChart
+        .value(function(d) { return d.count; })
+        .sort(null);
+    
+    var donutArc = d3.arc()
+        .innerRadius(radius - donutWidth)  // Instead of zero, for a donut chart add a width and subtract from the radius
+        .outerRadius(radius);
 
     $scope.createDonutChart = function()
     {   
+        console.log($scope.dataset);
         $("#donutChart").html("");
         
         var svgDonut = d3.select('#donutChart')
@@ -43,14 +57,6 @@ app.controller('myCtrl', function($scope) {
             .attr('height', height)
             .append('g')
             .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
-        
-        var pie = d3.pie()// D3 Pie() function to turn normal data into pieChart
-            .value(function(d) { return d.count; })
-            .sort(null);
-
-        var donutArc = d3.arc()
-            .innerRadius(radius - donutWidth)  // Instead of zero, for a donut chart add a width and subtract from the radius
-            .outerRadius(radius);
 
         var donutPath = svgDonut.selectAll('path')
             .data(pie($scope.dataset))
@@ -60,22 +66,7 @@ app.controller('myCtrl', function($scope) {
             .attr('fill', function(d, i) {
                 return color(d.data.label);
             });
-
-        donutPath.on('mouseover', function(d) {
-            var total = d3.sum($scope.dataset.map(function(d) {
-                return d.count;
-            }));
-
-            var percent = Math.round(1000 * d.data.count / total) / 10;
-            tooltip.select('.label').html(d.data.label);
-            tooltip.select('.count').html(d.data.count);
-            tooltip.select('.percent').html(percent + '%');
-            tooltip.style('display', 'block');
-        });
-        donutPath.on('mouseout', function() {
-            tooltip.style('display', 'none');
-        });
-
+        
         var legend = svgDonut.selectAll('.legend') // select non-existing labels
             .data(color.domain()) // because we passed the paths through the color function before, we now have a domain consisting of the colors & corresponding labels
             .enter()
@@ -89,7 +80,7 @@ app.controller('myCtrl', function($scope) {
                 var vert = i * height - offset;
                 return 'translate(' + horz + ',' + vert + ')';
             });
-
+        
         legend.append('rect') // add a rectangle to the created legend
             .attr('width', legendRectSize) // with a width, height and color
             .attr('height', legendRectSize)
@@ -100,6 +91,8 @@ app.controller('myCtrl', function($scope) {
             .attr('x', legendRectSize + legendSpacing)// space the x and y of the text
             .attr('y', legendRectSize - legendSpacing)
             .text(function(d) { return d; });// select corresponding text from the data in the legend element
+
+
     }
     $scope.createDonutChart();
     

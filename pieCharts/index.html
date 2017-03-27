@@ -14,7 +14,7 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body ng-app="D3App" ng-controller="myCtrl">
-    <h1> Pie and Donut chart data visualisation testing </h1>
+    <h1>Pie and Donut chart data visualisation testing</h1>
     <div id="pieChart"></div>
     <div id="donutChartContainer">
         <div id="donutChart"></div>
@@ -23,10 +23,18 @@
                 <h2>Control the donut chart!</h2>
             </div>
             <div class="form-group" ng-repeat="dataEntry in dataset">
-                <label for="input1">Input {{dataset.indexOf(dataEntry)}}</label>
-                <input class="form-control inputPercentage" type="number" ng-model='dataEntry.count'>
-                <input class="form-control inputName" placeholder="{{dataEntry.label}}" type="text" ng-model="inputName">
+                <h3>Input {{dataset.indexOf(dataEntry)}}</h3>
+                <div class="nameContainer formContainer">
+                    <label>Name</label>
+                    <input class="form-control inputName" placeholder="{{dataEntry.label}}" type="text" ng-model="dataEntry.label">
+                </div>
+                <div class="percentageContainer formContainer">
+                    <label>Amount</label>
+                    <input class="form-control inputPercentage" type="number" ng-model='dataEntry.count'>
+                </div>
             </div>
+            <div class="form-group">
+                <button ng-click="addNewInput()" class="btn btn-default">Add new Input field</button>
             <div class="form-group">
                 <button ng-click="createDonutChart()" type="submit" class="btn btn-default">Submit</button>
             </div>
