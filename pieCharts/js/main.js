@@ -33,6 +33,23 @@ app.controller('myCtrl', function($scope) {
     var legendRectSize = 18;
     var legendSpacing = 4;
     
+    var totalCount = 100;
+    
+    $scope.createPercentage = function()
+    {
+        totalCount = 0;
+        $scope.dataset.forEach(function(dataEntry)
+        {
+            totalCount += dataEntry.count;
+        })
+        console.log(totalCount);
+        $scope.dataset.forEach(function(dataEntry)
+        {
+            dataEntry.percentage = (dataEntry.count/totalCount)*100;
+            console.log(dataEntry);
+        })
+    }
+
     $scope.addNewInput = function()
     {
         $scope.dataset.push({label:'enter a label here', count: 0})
@@ -91,8 +108,7 @@ app.controller('myCtrl', function($scope) {
             .attr('x', legendRectSize + legendSpacing)// space the x and y of the text
             .attr('y', legendRectSize - legendSpacing)
             .text(function(d) { return d; });// select corresponding text from the data in the legend element
-
-
+        $scope.createPercentage();
     }
     $scope.createDonutChart();
     
