@@ -2,10 +2,10 @@ var app = angular.module('D3App', []);
 app.controller('myCtrl', function($scope) {
     
     $scope.dataset = [
-            { label: 'Abulia', count: 10 },
-            { label: 'Betelgeuse', count: 30 },
-            { label: 'Cantaloupe', count: 30 },
-            { label: 'Dijkstra', count: 30 }
+            { label: 'Abulia', count: 10, changed: false },
+            { label: 'Betelgeuse', count: 30, changed: false},
+            { label: 'Cantaloupe', count: 30, changed: false},
+            { label: 'Dijkstra', count: 30, changed: false}
         ];
 
     var width = 360;
@@ -42,11 +42,32 @@ app.controller('myCtrl', function($scope) {
         {
             totalCount += dataEntry.count;
         })
-        console.log(totalCount);
         $scope.dataset.forEach(function(dataEntry)
         {
             dataEntry.percentage = (dataEntry.count/totalCount)*100;
-            console.log(dataEntry);
+        })
+    }
+    $scope.adjustInputs = function(input)
+    {
+        
+        var amountToAdjust = totalCount - input.dataEntry.count;
+        
+        var amountInputs = 0;
+        input.dataEntry.changed = true;
+                
+        $scope.dataset.forEach(function(dataEntry)
+        {
+            if(dataEntry.label != input.dataEntry.label /*&& dataEntry.changed == false*/)
+            {
+                amountInputs++;
+            }
+        })
+        $scope.dataset.forEach(function(dataEntry)
+        {
+            if(dataEntry.label != input.dataEntry.label /*&& dataEntry.changed == false*/)
+            {
+                dataEntry.count = amountToAdjust/amountInputs;
+            }
         })
     }
 
@@ -65,7 +86,6 @@ app.controller('myCtrl', function($scope) {
 
     $scope.createDonutChart = function()
     {   
-        console.log($scope.dataset);
         $("#donutChart").html("");
         
         var svgDonut = d3.select('#donutChart')
